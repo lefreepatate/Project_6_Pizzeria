@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Mode_Paiement` (
   `Commande_Client_id` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`, `Commande_id`, `Commande_Client_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_Mode_Paiement_Commande1_idx` (`Commande_id` ASC, `Commande_Client_id` ASC) VISIBLE,
+  INDEX `fk_Mode_Paiement_Commande_idx` (`Commande_id` ASC, `Commande_Client_id` ASC) VISIBLE,
   CONSTRAINT `fk_Mode_Paiement_Commande1`
     FOREIGN KEY (`Commande_id` , `Commande_Client_id`)
     REFERENCES `oc_pizza`.`Commande` (`id` , `Client_id`)
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Ligne_Commande` (
   `Commande_Client_id` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`, `Commande_id`, `Commande_Client_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_Ligne_Commande_Commande1_idx` (`Commande_id` ASC, `Commande_Client_id` ASC) VISIBLE,
+  INDEX `fk_Ligne_Commande_Commande_idx` (`Commande_id` ASC, `Commande_Client_id` ASC) VISIBLE,
   CONSTRAINT `fk_Ligne_Commande_Commande1`
     FOREIGN KEY (`Commande_id` , `Commande_Client_id`)
     REFERENCES `oc_pizza`.`Commande` (`id` , `Client_id`)
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Commande` (
   `Client_id` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`, `Client_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_Commande_Client1_idx` (`Client_id` ASC) VISIBLE,
+  INDEX `fk_Commande_Client_idx` (`Client_id` ASC) VISIBLE,
   CONSTRAINT `fk_Commande_Client1`
     FOREIGN KEY (`Client_id`)
     REFERENCES `oc_pizza`.`Client` (`id`)
@@ -164,8 +164,8 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Ligne_Pizza` (
   `Menu_Ligne_Commande_Commande_Client_id` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`, `Menu_id`, `Menu_Ligne_Commande_id`, `Menu_Ligne_Commande_Commande_id`, `Menu_Ligne_Commande_Commande_Client_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_Ligne_Pizza_Menu1_idx` (`Menu_id` ASC, `Menu_Ligne_Commande_id` ASC, `Menu_Ligne_Commande_Commande_id` ASC, `Menu_Ligne_Commande_Commande_Client_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Ligne_Pizza_Menu1`
+  INDEX `fk_Ligne_Pizza_Menu_idx` (`Menu_id` ASC, `Menu_Ligne_Commande_id` ASC, `Menu_Ligne_Commande_Commande_id` ASC, `Menu_Ligne_Commande_Commande_Client_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Ligne_Pizza_Menu`
     FOREIGN KEY (`Menu_id` , `Menu_Ligne_Commande_id` , `Menu_Ligne_Commande_Commande_id` , `Menu_Ligne_Commande_Commande_Client_id`)
     REFERENCES `oc_pizza`.`Menu` (`id` , `Ligne_Commande_id` , `Ligne_Commande_Commande_id` , `Ligne_Commande_Commande_Client_id`)
     ON DELETE CASCADE
@@ -184,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Pizza` (
   `Ligne_Pizza_id` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`, `Ligne_Pizza_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_Pizza_Ligne_Pizza1_idx` (`Ligne_Pizza_id` ASC) VISIBLE,
+  INDEX `fk_Pizza_Ligne_Pizza_idx` (`Ligne_Pizza_id` ASC) VISIBLE,
   CONSTRAINT `fk_Pizza_Ligne_Pizza1`
     FOREIGN KEY (`Ligne_Pizza_id`)
     REFERENCES `oc_pizza`.`Ligne_Pizza` (`id`)
@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Quantite` (
   `Ingredients_id` INT NOT NULL  DEFAULT 1,
   PRIMARY KEY (`id`, `Ingredients_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_Quantite_Ingredients1_idx` (`Ingredients_id` ASC) VISIBLE,
+  INDEX `fk_Quantite_Ingredients_idx` (`Ingredients_id` ASC) VISIBLE,
   CONSTRAINT `fk_Quantite_Ingredients1`
     FOREIGN KEY (`Ingredients_id`)
     REFERENCES `oc_pizza`.`Ingredients` (`id`)
@@ -221,8 +221,8 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Quantite_has_Pizza` (
   `Pizza_id` INT NOT NULL  DEFAULT 1,
   `Pizza_Ligne_Pizza_id` INT NOT NULL  DEFAULT 1,
   PRIMARY KEY (`Quantite_id`, `Pizza_id`, `Pizza_Ligne_Pizza_id`),
-  INDEX `fk_Quantite_has_Pizza_Pizza1_idx` (`Pizza_id` ASC, `Pizza_Ligne_Pizza_id` ASC) VISIBLE,
-  INDEX `fk_Quantite_has_Pizza_Quantite1_idx` (`Quantite_id` ASC) VISIBLE,
+  INDEX `fk_Quantite_has_Pizza_Pizza_idx` (`Pizza_id` ASC, `Pizza_Ligne_Pizza_id` ASC) VISIBLE,
+  INDEX `fk_Quantite_has_Pizza_Quantite_idx` (`Quantite_id` ASC) VISIBLE,
   CONSTRAINT `fk_Quantite_has_Pizza_Quantite1`
     FOREIGN KEY (`Quantite_id`)
     REFERENCES `oc_pizza`.`Quantite` (`id`)
@@ -242,15 +242,15 @@ DROP TABLE IF EXISTS `oc_pizza`.`Ligne_Dessert` ;
 
 CREATE TABLE IF NOT EXISTS `oc_pizza`.`Ligne_Dessert` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `quantite` INT NOT NULL,
+  `quantite` INT NULL,
   `Menu_id` INT NOT NULL DEFAULT 1,
   `Menu_Ligne_Commande_id` INT NOT NULL DEFAULT 1,
   `Menu_Ligne_Commande_Commande_id` INT NOT NULL DEFAULT 1,
   `Menu_Ligne_Commande_Commande_Client_id` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`, `Menu_id`, `Menu_Ligne_Commande_id`, `Menu_Ligne_Commande_Commande_id`, `Menu_Ligne_Commande_Commande_Client_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_Ligne_Dessert_Menu1_idx` (`Menu_id` ASC, `Menu_Ligne_Commande_id` ASC, `Menu_Ligne_Commande_Commande_id` ASC, `Menu_Ligne_Commande_Commande_Client_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Ligne_Dessert_Menu1`
+  INDEX `fk_Ligne_Dessert_Menu_idx` (`Menu_id` ASC, `Menu_Ligne_Commande_id` ASC, `Menu_Ligne_Commande_Commande_id` ASC, `Menu_Ligne_Commande_Commande_Client_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Ligne_Dessert_Menu`
     FOREIGN KEY (`Menu_id` , `Menu_Ligne_Commande_id` , `Menu_Ligne_Commande_Commande_id` , `Menu_Ligne_Commande_Commande_Client_id`)
     REFERENCES `oc_pizza`.`Menu` (`id` , `Ligne_Commande_id` , `Ligne_Commande_Commande_id` , `Ligne_Commande_Commande_Client_id`)
     ON DELETE NO ACTION
@@ -265,8 +265,8 @@ DROP TABLE IF EXISTS `oc_pizza`.`Dessert` ;
 
 CREATE TABLE IF NOT EXISTS `oc_pizza`.`Dessert` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(45) NOT NULL,
-  `prix` FLOAT NOT NULL,
+  `nom` VARCHAR(45) NULL,
+  `prix` FLOAT NULL,
   `Ligne_Dessert_id` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`, `Ligne_Dessert_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
@@ -292,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Ligne_Boisson` (
   `Menu_Ligne_Commande_Commande_Client_id` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`, `Menu_id`, `Menu_Ligne_Commande_id`, `Menu_Ligne_Commande_Commande_id`, `Menu_Ligne_Commande_Commande_Client_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_Ligne_Boisson_Menu1_idx` (`Menu_id` ASC, `Menu_Ligne_Commande_id` ASC, `Menu_Ligne_Commande_Commande_id` ASC, `Menu_Ligne_Commande_Commande_Client_id` ASC) VISIBLE,
+  INDEX `fk_Ligne_Boisson_Menu_idx` (`Menu_id` ASC, `Menu_Ligne_Commande_id` ASC, `Menu_Ligne_Commande_Commande_id` ASC, `Menu_Ligne_Commande_Commande_Client_id` ASC) VISIBLE,
   CONSTRAINT `fk_Ligne_Boisson_Menu`
     FOREIGN KEY (`Menu_id` , `Menu_Ligne_Commande_id` , `Menu_Ligne_Commande_Commande_id` , `Menu_Ligne_Commande_Commande_Client_id`)
     REFERENCES `oc_pizza`.`Menu` (`id` , `Ligne_Commande_id` , `Ligne_Commande_Commande_id` , `Ligne_Commande_Commande_Client_id`)
@@ -312,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Boisson` (
   `Ligne_Boisson_id` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`, `Ligne_Boisson_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_Boisson_Ligne_Boisson1_idx` (`Ligne_Boisson_id` ASC) VISIBLE,
+  INDEX `fk_Boisson_Ligne_Boisson_idx` (`Ligne_Boisson_id` ASC) VISIBLE,
   CONSTRAINT `fk_Boisson_Ligne_Boisson1`
     FOREIGN KEY (`Ligne_Boisson_id`)
     REFERENCES `oc_pizza`.`Ligne_Boisson` (`id`)
@@ -335,7 +335,7 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Pizzaiolo` (
   PRIMARY KEY (`id`, `Ligne_Commande_id`, `Ligne_Commande_Commande_id`, `Ligne_Commande_Commande_Client_id`),
   UNIQUE INDEX `n_Securite_Sociale_UNIQUE` (`n_Securite_Sociale` ASC) VISIBLE,
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_Pizzaiolo_Ligne_Commande1_idx` (`Ligne_Commande_id` ASC, `Ligne_Commande_Commande_id` ASC, `Ligne_Commande_Commande_Client_id` ASC) VISIBLE,
+  INDEX `fk_Pizzaiolo_Ligne_Commande_idx` (`Ligne_Commande_id` ASC, `Ligne_Commande_Commande_id` ASC, `Ligne_Commande_Commande_Client_id` ASC) VISIBLE,
   CONSTRAINT `fk_Pizzaiolo_Ligne_Commande1`
     FOREIGN KEY (`Ligne_Commande_id` , `Ligne_Commande_Commande_id` , `Ligne_Commande_Commande_Client_id`)
     REFERENCES `oc_pizza`.`Ligne_Commande` (`id` , `Commande_id` , `Commande_Client_id`)
@@ -357,8 +357,8 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Facture` (
   `Pizzeria_numero_Siret` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`, `Commande_id`, `Commande_Client_id`, `Pizzeria_numero_Siret`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_Facture_Commande1_idx` (`Commande_id` ASC, `Commande_Client_id` ASC) VISIBLE,
-  INDEX `fk_Facture_Pizzeria1_idx` (`Pizzeria_numero_Siret` ASC) VISIBLE,
+  INDEX `fk_Facture_Commande_idx` (`Commande_id` ASC, `Commande_Client_id` ASC) VISIBLE,
+  INDEX `fk_Facture_Pizzeria_idx` (`Pizzeria_numero_Siret` ASC) VISIBLE,
   CONSTRAINT `fk_Facture_Commande1`
     FOREIGN KEY (`Commande_id` , `Commande_Client_id`)
     REFERENCES `oc_pizza`.`Commande` (`id` , `Client_id`)
@@ -407,8 +407,8 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Stocks_has_Pizzeria` (
   `Stocks_id` INT NOT NULL DEFAULT 1,
   `Pizzeria_numero_Siret` VARCHAR(14) NOT NULL DEFAULT 1,
   PRIMARY KEY (`Stocks_id`, `Pizzeria_numero_Siret`),
-  INDEX `fk_Stocks_has_Pizzeria_Pizzeria1_idx` (`Pizzeria_numero_Siret` ASC) VISIBLE,
-  INDEX `fk_Stocks_has_Pizzeria_Stocks1_idx` (`Stocks_id` ASC) VISIBLE,
+  INDEX `fk_Stocks_has_Pizzeria_Pizzeria_idx` (`Pizzeria_numero_Siret` ASC) VISIBLE,
+  INDEX `fk_Stocks_has_Pizzeria_Stocks_idx` (`Stocks_id` ASC) VISIBLE,
   CONSTRAINT `fk_Stocks_has_Pizzeria_Stocks1`
     FOREIGN KEY (`Stocks_id`)
     REFERENCES `oc_pizza`.`Stocks` (`id`)
@@ -442,8 +442,8 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Stocks_has_Ingredients` (
   `Stocks_id` INT NOT NULL DEFAULT 1,
   `Ingredients_id` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`Stocks_id`, `Ingredients_id`),
-  INDEX `fk_Stocks_has_Ingredients_Ingredients1_idx` (`Ingredients_id` ASC) VISIBLE,
-  INDEX `fk_Stocks_has_Ingredients_Stocks1_idx` (`Stocks_id` ASC) VISIBLE,
+  INDEX `fk_Stocks_has_Ingredients_Ingredients_idx` (`Ingredients_id` ASC) VISIBLE,
+  INDEX `fk_Stocks_has_Ingredients_Stocks_idx` (`Stocks_id` ASC) VISIBLE,
   CONSTRAINT `fk_Stocks_has_Ingredients_Stocks1`
     FOREIGN KEY (`Stocks_id`)
     REFERENCES `oc_pizza`.`Stocks` (`id`)

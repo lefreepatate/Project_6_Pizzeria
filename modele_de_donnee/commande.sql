@@ -5,10 +5,11 @@ VALUES
     ('M.', 'DUPRÈ', 'JACQUES', 'JQ@GMAIL.COM', 'PAZSWORD');
 
 INSERT INTO Adresses 
-	(nom_adresse, adresse, complement_adresse, code_postal, ville)
+	(nom_adresse, adresse, complement_adresse, code_postal, ville, client_id)
 VALUES 
-	('Maison', '25 rue de Thionville', '1er Étage', '59800', 'Lille'),
-    ('BUREAU', '36 rue de la tourelle', '', '59800', 'Lille');
+	('Maison', '25 rue de Thionville', '1er Étage', '59800', 'Lille',1),
+    ('Bureau', '3 rue de la clef', 'bat C', '59800', 'Lille',1),
+    ('BUREAU', '36 rue de la tourelle', '', '59800', 'Lille',2);
 
 
 INSERT INTO Dessert 
@@ -51,60 +52,28 @@ INSERT INTO Ingredients
 	(nom) 
 VALUES
 	('sauce tomate'),
-    ('sauce blanche');
+    ('sauce blanche'),
+    ('peperoni'),
+    ('rooquefort'),
+    ('anchois'),
+    ('parmessan'),
+    ('roquette'),
+    ('mozarella'),
+    ('chorizo'),
+    ('chèvre');    
 
 INSERT INTO Quantite
 	(quantite_ingredient)
 VALUES
 	('1'),
-    ('1');
-
-INSERT INTO Ingredients
-	(nom) 
-VALUES
-	('peperoni'),
-    ('rooquefort');
-
-INSERT INTO Quantite
-	(quantite_ingredient) 
-VALUES
+    ('1'),
 	('6'),
-    ('4');
-
-INSERT INTO Ingredients
-	(nom) 
-VALUES
-	('anchois'),
-    ('parmessan');
-
-INSERT INTO Quantite
-	(quantite_ingredient) 
-VALUES
-	('4'),
-    ('5');
-
-INSERT INTO Ingredients
-	(nom)
-    VALUES
-	('roquette'),
-    ('mozarella');
-
-INSERT INTO Quantite
-	(quantite_ingredient)
-VALUES
-	('1'),
-    ('5');
-
-INSERT INTO Ingredients
-	(nom) 
-VALUES
-	('chorizo'),
-    ('chèvre');
-
-INSERT INTO Quantite
-	(quantite_ingredient) 
-    VALUES
-	('8'),
+    ('4'),
+    ('4'),
+    ('5'),
+    ('1'),
+    ('5'),
+    ('8'),
     ('4');
 
 INSERT INTO Menu
