@@ -124,9 +124,103 @@ VALUES
 	('40'),
     ('20');
 
+INSERT INTO 
+	Stocks_has_Ingredients (Stocks_id, Ingredients_id) 
+VALUES 
+	(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10); 
+    
+INSERT INTO 
+	Stocks_has_pizzeria (Stocks_id,Pizzeria_numero_Siret)
+VALUES
+	(1,85496374521008),(2,46485793548657);
+
+INSERT INTO Quantite_has_Pizza
+	(Quantite_id, Pizza_id, Pizza_Ligne_Pizza_id)
+VALUES
+	(2,1,1),
+	(1,2,2);
 
 
 
+/* Updating foreing keys */
 
+UPDATE Commande SET Client_id = 1 where id = 1 ;
+UPDATE Commande SET Client_id = 2 where id = 2 ;
 
+UPDATE dessert SET Ligne_dessert_id = 1 where id = 1 ;
+UPDATE dessert SET Ligne_dessert_id = 2 where id = 2 ;
 
+UPDATE ligne_dessert SET Menu_id = 1 where id = 1;
+UPDATE ligne_dessert SET Menu_id = 2 where id = 2;
+UPDATE ligne_dessert SET Menu_Ligne_Commande_id = 1 where id = 1;
+UPDATE ligne_dessert SET Menu_Ligne_Commande_id = 2 where id = 2;
+UPDATE ligne_dessert SET Menu_Ligne_Commande_Commande_id = 1 where id = 1;
+UPDATE ligne_dessert SET Menu_Ligne_Commande_Commande_id = 2 where id = 2;
+UPDATE ligne_dessert SET Menu_Ligne_Commande_Commande_Client_id = 1 where id = 1;
+UPDATE ligne_dessert SET Menu_Ligne_Commande_Commande_Client_id = 2 where id = 2;
+
+UPDATE boisson SET Ligne_Boisson_id = 1 where id = 1 ;
+UPDATE boisson SET Ligne_Boisson_id = 2 where id = 2 ;
+
+UPDATE ligne_boisson SET Menu_id = 1 where id = 1;
+UPDATE ligne_boisson SET Menu_id = 2 where id = 2;
+UPDATE ligne_boisson SET Menu_Ligne_Commande_id = 1 where id = 1;
+UPDATE ligne_boisson SET Menu_Ligne_Commande_id = 2 where id = 2;
+UPDATE ligne_boisson SET Menu_Ligne_Commande_Commande_id = 1 where id = 1;
+UPDATE ligne_boisson SET Menu_Ligne_Commande_Commande_id = 2 where id = 2;
+UPDATE ligne_boisson SET Menu_Ligne_Commande_Commande_Client_id = 1 where id = 1;
+UPDATE ligne_boisson SET Menu_Ligne_Commande_Commande_Client_id = 2 where id = 2;
+
+UPDATE pizza SET Ligne_pizza_id = 1 where id = 1 ;
+UPDATE pizza SET Ligne_pizza_id = 2 where id = 2 ;
+
+UPDATE ligne_pizza SET Menu_id = 1 where id = 1;
+UPDATE ligne_pizza SET Menu_id = 2 where id = 2;
+UPDATE ligne_pizza SET Menu_Ligne_Commande_id = 1 where id = 1;
+UPDATE ligne_pizza SET Menu_Ligne_Commande_id = 2 where id = 2;
+UPDATE ligne_pizza SET Menu_Ligne_Commande_Commande_id = 1 where id = 1;
+UPDATE ligne_pizza SET Menu_Ligne_Commande_Commande_id = 2 where id = 2;
+UPDATE ligne_pizza SET Menu_Ligne_Commande_Commande_Client_id = 1 where id = 1;
+UPDATE ligne_pizza SET Menu_Ligne_Commande_Commande_Client_id = 2 where id = 2;
+
+UPDATE Pizzaiolo SET Ligne_Commande_id = 1 where id = 1;
+UPDATE Pizzaiolo SET Ligne_Commande_id = 2 where id = 2;
+UPDATE Pizzaiolo SET Ligne_Commande_Commande_id = 1 where id = 1;
+UPDATE Pizzaiolo SET Ligne_Commande_Commande_id = 2 where id = 2;
+UPDATE Pizzaiolo SET Ligne_Commande_Commande_Client_id = 1 where id = 1;
+UPDATE Pizzaiolo SET Ligne_Commande_Commande_Client_id = 2 where id = 2;
+
+UPDATE menu SET Ligne_Commande_id = 1 where id = 1;
+UPDATE menu SET Ligne_Commande_id = 2 where id = 2;
+UPDATE menu SET Ligne_Commande_Commande_id = 1 where id = 1;
+UPDATE menu SET Ligne_Commande_Commande_id = 2 where id = 2;
+UPDATE menu SET Ligne_Commande_Commande_Client_id = 1 where id = 1;
+UPDATE menu SET Ligne_Commande_Commande_Client_id = 2 where id = 2;
+
+UPDATE Ligne_Commande SET commande_id = 1 where id = 1 ;
+UPDATE Ligne_Commande SET commande_id = 2 where id = 2 ;
+UPDATE Ligne_Commande SET commande_client_id = 1 where id = 1 ;
+UPDATE Ligne_Commande SET commande_client_id = 2 where id = 2 ;
+
+UPDATE Mode_Paiement SET commande_id = 1 where id = 1 ;
+UPDATE Mode_Paiement SET commande_id = 2 where id = 2 ;
+UPDATE Mode_Paiement SET commande_client_id = 1 where id = 1 ;
+UPDATE Mode_Paiement SET commande_client_id = 2 where id = 2 ;
+
+UPDATE facture SET commande_id = 1 where id = 1 ;
+UPDATE facture SET commande_id = 2 where id = 2 ;
+UPDATE facture SET commande_client_id = 1 where id = 1 ;
+UPDATE facture SET commande_client_id = 2 where id = 2 ;
+UPDATE facture SET pizzeria_numero_Siret = '85496374521008' where id = 1 ;
+UPDATE facture SET pizzeria_numero_Siret = '46485793548657' where id = 2 ;
+
+UPDATE Quantite SET Ingredients_id = 1 where id = 1 ;
+UPDATE Quantite SET Ingredients_id = 2 where id = 2 ;
+UPDATE Quantite SET Ingredients_id = 3 where id = 3 ;
+UPDATE Quantite SET Ingredients_id = 4 where id = 4 ;
+UPDATE Quantite SET Ingredients_id = 5 where id = 5 ;
+UPDATE Quantite SET Ingredients_id = 6 where id = 6 ;
+UPDATE Quantite SET Ingredients_id = 7 where id = 7 ;
+UPDATE Quantite SET Ingredients_id = 8 where id = 8 ;
+UPDATE Quantite SET Ingredients_id = 9 where id = 9 ;
+UPDATE Quantite SET Ingredients_id = 10 where id = 10 ;
