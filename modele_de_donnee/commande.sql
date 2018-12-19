@@ -85,12 +85,18 @@ INSERT INTO Ligne_Menu
 VALUES
 	(1, 1, 1, 1,'24'),
     (2, null, 2, 2,'12');
+    
+INSERT INTO Mode_Paiement
+	(carte_bancaire, especes, cheque)
+VALUES
+	('0', '1', '0'),
+    ('1', '0', '0');
 
 INSERT INTO Commande
-	(date, nom, adresse, complement_adresse, code_postal, ville, prix_total, client_id) 
+	(date, nom, adresse, complement_adresse, code_postal, ville, prix_total, client_id, mode_Paiement_id) 
 VALUES
-	('2018-12-10', 'GARCIA', '25 rue de Thionville', '1er Étage', '59800', 'LILLE', '24', 1),
-    ('2018-12-10', 'DUPRÈ', '36 rue de la tourelle', '', '59800', 'Lille', '12', 2);
+	('2018-12-10', 'GARCIA', '25 rue de Thionville', '1er Étage', '59800', 'LILLE', '24', 1, 1),
+    ('2018-12-10', 'DUPRÈ', '36 rue de la tourelle', '', '59800', 'Lille', '12', 2, 2);
     
 INSERT INTO Pizzaiolo
 	(nom, n_Securite_Sociale) 
@@ -109,12 +115,6 @@ INSERT INTO Ligne_Commande_has_Pizzaiolo
 VALUES
 	(1, 1),
     (2, 2);
-    
-INSERT INTO Mode_Paiement
-	(carte_bancaire, especes, cheque)
-VALUES
-	('0', '1', '0'),
-    ('1', '0', '0');
 
 INSERT INTO Pizzeria
 	(numero_Siret, nom_gerant, adresse, complement_adresse, code_postal, ville) 

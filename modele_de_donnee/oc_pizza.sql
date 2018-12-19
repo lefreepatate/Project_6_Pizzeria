@@ -89,12 +89,19 @@ CREATE TABLE IF NOT EXISTS `oc_pizza`.`Commande` (
   `ville` VARCHAR(45) NOT NULL,
   `prix_total` FLOAT NOT NULL,
   `client_id` INT NOT NULL,
+  `mode_Paiement_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   INDEX `fk_Commande_Client1_idx` (`client_id` ASC) VISIBLE,
+  INDEX `fk_Commande_Mode_Paiement1_idx` (`mode_Paiement_id` ASC) VISIBLE,
   CONSTRAINT `fk_Commande_Client1`
     FOREIGN KEY (`client_id`)
     REFERENCES `oc_pizza`.`Client` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Commande_Mode_Paiement1`
+    FOREIGN KEY (`mode_Paiement_id`)
+    REFERENCES `oc_pizza`.`Mode_Paiement` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
